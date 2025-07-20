@@ -2,8 +2,15 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: sudo dpkg --add-architecture i386 && sudo apt update
-    command: winecfg || true
+  - name: Start VNC & Wine
+    init: |
+      mkdir -p ~/.vnc
+      echo "gitpod" | vncpasswd -f > ~/.vnc/passwd
+      chmod 600 ~/.vnc/passwd
+      export DISPLAY=:1
+      vncserver :1 -geometry 1280x720 -depth 24
+      wineboot --init
+    command: sleep infinity
 
 vscode:
   extensions:
