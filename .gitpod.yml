@@ -1,0 +1,10 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: sudo dpkg --add-architecture i386 && sudo apt update
+    command: winecfg || true
+
+vscode:
+  extensions:
+    - ms-vscode.remote-explorer
