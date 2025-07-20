@@ -1,16 +1,16 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN dpkg --add-architecture i386 && apt update && \
-    apt install -y sudo wget gnupg2 software-properties-common lxde tigervnc-standalone-server \
-    xterm x11-utils xfce4-terminal dbus-x11 \
-    wine64 libx11-6 libxext6 libxrender1 libxi6 libfreetype6 fonts-liberation libglu1-mesa && \
-    apt clean
 
-# Buat user gitpod
-RUN useradd -m gitpod && echo "gitpod ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN dpkg --add-architecture i386 && \
+    apt update && \
+    apt install -y software-properties-common && \
+    apt update && \
+    apt install -y \
+    wine64 wine32 winbind \
+    libgd3:i386 \
+    libx11-6 libxext6 libxrender1 libxi6 libfreetype6 \
+    libglu1-mesa fonts-liberation
 
-USER gitpod
-WORKDIR /home/gitpod
-
-CMD ["bash"]
+# Tes wine
+RUN winecfg || true
